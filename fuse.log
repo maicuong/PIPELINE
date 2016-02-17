@@ -1,0 +1,41 @@
+Running: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -lib secureip -o C:/FPGAPrj/PIPELINE/PARSER_isim_beh.exe -prj C:/FPGAPrj/PIPELINE/PARSER_beh.prj work.PARSER 
+ISim P.20131013 (signature 0x7708f090)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/pos_et_d_ff.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/reg_pos_et_d_ff.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/ha.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/ctl_sig.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/Byte.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/rw_counter_16.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/reg_16.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/op_decoder.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/controller.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/VM.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/MEMORY.vhd" into library work
+Parsing VHDL file "C:/FPGAPrj/PIPELINE/PIPELINE.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Compiling package standard
+Compiling package std_logic_1164
+Compiling package std_logic_arith
+Compiling package std_logic_unsigned
+Compiling architecture behavioral of entity pos_et_d_ff [pos_et_d_ff_default]
+Compiling architecture behavioral of entity reg_pos_et_d_ff [reg_pos_et_d_ff_default]
+Compiling architecture behavioral of entity reg_16 [reg_16_default]
+Compiling architecture behavioral of entity ha [ha_default]
+Compiling architecture behavioral of entity rw_counter_16 [rw_counter_16_default]
+Compiling architecture behavioral of entity op_decoder [op_decoder_default]
+Compiling architecture behavioral of entity ctl_sig [ctl_sig_default]
+Compiling architecture behavioral of entity Byte [byte_default]
+Compiling architecture behavioral of entity controller [controller_default]
+Compiling architecture behavioral of entity VM [vm_default]
+Compiling architecture rtl of entity MEMORY [memory_default]
+Compiling architecture behavioral of entity parser
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 27 VHDL Units
+Built simulation executable C:/FPGAPrj/PIPELINE/PARSER_isim_beh.exe
+Fuse Memory Usage: 32684 KB
+Fuse CPU Usage: 671 ms

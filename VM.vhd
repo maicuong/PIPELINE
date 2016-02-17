@@ -1,0 +1,151 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity VM is
+	port(clk,rst : in std_logic;
+		mem_d_in : in std_logic_vector(15 downto 0);
+		read,write : out std_logic;
+		S_fail, S_match : out std_logic;
+		addr,mem_d_out : out std_logic_vector(15 downto 0));
+end VM;
+
+architecture Behavioral of VM is
+
+	component reg_16
+	port(clk,lat,rst : in std_logic;
+			a : in std_logic_vector(15 downto 0);
+			f : out std_logic_vector(15 downto 0));
+	end component;
+	
+	component rw_counter_16
+	port(lat,clk,rst,s_inc : in std_logic;
+			d : in std_logic_vector(15 downto 0);
+			f : out std_logic_vector(15 downto 0));
+	end component;
+	
+	
+	---BUS_A
+	signal S_BUS_A : std_logic_vector(15 downto 0);
+	
+	---MAR
+	signal S_MARlat :  std_logic;
+	signal S_MAR_F : std_logic_vector(15 downto 0);
+	
+	---BUS_C
+	signal S_BUS_C : std_logic_vector(15 downto 0);
+	
+	---MDR
+	--signal S_MDRlat : std_logic;
+	signal S_IR_D : std_logic_vector(15 downto 0);
+	
+	---PR
+	signal S_PRlat, S_s_inc : std_logic;
+	signal S_PR_F : std_logic_vector(15 downto 0);
+	
+	component op_decoder
+	port(Op : in std_logic_vector(7 downto 0);
+		  Byte_r: out std_logic);
+	end component;
+	
+	
+	---Byte
+	signal S_Byte_r : std_logic; 
+	
+	
+	component controller
+	port(clk, rst, Byte_r: in std_logic;
+			IRlat, PRout, MARout,  
+			s_inc, s_mdi,
+			PRlat, MARlat, read, write,
+			S_fail, S_match: out std_logic);
+	end component;
+	
+	--- controller
+	signal  S_PRout, S_MARout, S_s_mdi, 
+				   S_read, S_write : std_logic;
+	
+	---IR
+	signal S_IRlat : std_logic;
+	signal S_IR_F : std_logic_vector(15 downto 0);
+	
+begin
+
+	IR : reg_16 port map 
+		(clk => clk,
+		lat => S_IRlat,
+		rst => '0',
+		a => S_IR_D,
+		f => S_IR_F);
+		 
+	MAR : reg_16 port map
+		(clk => clk,
+		 lat => S_MARlat,
+		 rst => '0',
+		 a => S_BUS_C, -----
+		 f => S_MAR_F);
+		 
+	--MDR : reg_16 port map
+		--(clk => clk,
+		 --lat => S_MDRlat,
+		 --rst => '0',
+		 --a => S_IR_D, -----
+		 --f => S_MDR_F);
+		 
+	PR : rw_counter_16 port map
+		(lat => S_PRlat,
+		 clk => clk,
+		 rst => rst,
+		 s_inc => S_s_inc,
+		 d => S_BUS_C,
+		 f => S_PR_F);
+		 
+	op_decoder1 : op_decoder port map
+		(Op => S_IR_F(15 downto 8),
+		 Byte_r => S_Byte_r);
+		 
+	controller1 : controller port map
+		(clk => clk, 
+		 rst => rst,
+		 Byte_r => S_Byte_r,
+		 --Byte_r => '1',
+		 PRout => S_PRout,
+		 IRlat => S_IRlat,
+		 MARout => S_MARout,
+		 s_inc => S_s_inc,
+		 s_mdi => S_s_mdi,
+		 PRlat => S_PRlat,
+		 MARlat => S_MARlat,
+		 S_fail => S_fail,------------
+		 S_match => S_match,----------
+		 read => S_read,
+		 write => S_write);
+
+   -----------------BUS C
+	process(S_BUS_C, mem_d_in, S_s_mdi)
+	begin
+		if(S_s_mdi = '1') then
+			S_IR_D <= mem_d_in;
+	  elsif(S_s_mdi = '0') then
+			S_IR_D <= S_BUS_C;
+		else
+			S_IR_D <= (others => '0');
+		end if;
+	end process;
+	
+	-----------------------BUS A
+	--process(S_MDR_F, S_MDRout_a)
+	--begin
+		--if(S_MDRout_a = '1') then
+			--S_BUS_A <= S_MDR_F;
+		--else
+			--S_BUS_A <= (others => '0');
+	  --end if;
+	--end process;
+	
+	-----------------MEMORY
+	read <= S_read;
+	write <= S_write;
+	addr <= S_PR_F;
+	mem_d_out <= S_IR_F;
+
+end Behavioral;

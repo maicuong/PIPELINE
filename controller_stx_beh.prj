@@ -1,0 +1,5 @@
+vhdl isim_temp "pos_et_d_ff.vhd"
+vhdl isim_temp "reg_pos_et_d_ff.vhd"
+vhdl isim_temp "ctl_sig.vhd"
+vhdl isim_temp "Byte.vhd"
+vhdl isim_temp "controller.vhd"

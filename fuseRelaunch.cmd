@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "C:/FPGAPrj/PIPELINE/PARSER_isim_beh.exe" -prj "C:/FPGAPrj/PIPELINE/PARSER_beh.prj" "work.PARSER" 
