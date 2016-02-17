@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity controller is
 	port(clk, rst, Byte_r: in std_logic;
+			nez_in, text_in : in std_logic_vector(7 downto 0);
 			  PRout, MARout, 
 			s_inc, s_mdi,
 			PRlat, MARlat, IRlat, read, write , S_fail, S_match: out std_logic);
@@ -93,8 +94,8 @@ begin
 			
 	Byte1 : Byte port map (
 		TRG => Byte_r,
-		TEXT_IN => "00001000",
-		NEZ_IN => "00001000",
+		TEXT_IN => text_in,
+		NEZ_IN => nez_in,
 		FAIL => S_fail,
 		MATCH => S_match);
 	

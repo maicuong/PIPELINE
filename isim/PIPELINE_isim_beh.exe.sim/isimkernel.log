@@ -1,0 +1,10 @@
+Command line:
+   PIPELINE_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  52347
+
+Wed Feb 17 20:33:35 2016
+
+
+ Elaboration Time: 0.203125 sec

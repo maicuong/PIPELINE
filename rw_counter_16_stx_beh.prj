@@ -1,0 +1,4 @@
+vhdl isim_temp "pos_et_d_ff.vhd"
+vhdl isim_temp "reg_pos_et_d_ff.vhd"
+vhdl isim_temp "ha.vhd"
+vhdl isim_temp "rw_counter_16.vhd"
